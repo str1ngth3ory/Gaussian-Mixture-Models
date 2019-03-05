@@ -1,6 +1,6 @@
 # Assignment 5 - Expectation Maximization
 
-Expectation Maximization - Assignment 5 - CS6601 - (On-campus)
+Expectation Maximization - Assignment 5 - CS6601 
 
 <img src="images/k6_bird_color_24.png" width="400"/> <img src="images/pcd_clustered.gif" width="400"/> 
 
@@ -8,26 +8,25 @@ Expectation Maximization - Assignment 5 - CS6601 - (On-campus)
 
 Clone this repository:
 
-`git clone https://github.gatech.edu/omscs6601/assignment_5_oncampus.git`
+`git clone https://github.gatech.edu/omscs6601/assignment_5_online.git`
 
+The grading script runs with Python 3.6.7
+(Do not use any version of Python 2.X)
+
+#### Recommended - Use a virtualenv:
+
+```bash
+pip3 install virtualenv
+virtualenv assignment_5_online
+source assignment_5_online/bin/activate 
+```
 #### Requirements: 
 Next you should install python packages listed in `requirements.txt`. You can install them using the command below:
 
-`pip install -r requirements.txt`
-
-You are free to use python 2.7 or python 3.6, but note that grading script runs python 2.7, so be carefull with division operation (e.g `7/2` gives you `3` python 2.7, make sure you add floating points and write `7./2.`  instead)
+`pip3 install -r requirements.txt`
 
 #### Jupyter Notebook:
-In order to complete this assignment, you will be using **jupyter notebook** instead of **.py** scripts as you did in earlier assignments. If you are using Anaconda then already have `jupyter` installed in your system, if you are still not using Anaconda, you are highly encouraged to do so - [Download Anaconda](https://www.anaconda.com/download/#macos) & [conda getting started guide](https://conda.io/docs/user-guide/getting-started.html).
-
-Alternatively, you can install `jupyter` using `pip` command:
-
-```bash
-python -m pip install --upgrade pip
-python -m pip install jupyter
-```
-
-See [https://jupyter.org/install](https://jupyter.org/install) for further details about Jupyter Notebook installation.
+In order to complete this assignment, you will be using **jupyter notebook** instead of **.py** scripts as you did in earlier assignments. 
 
 To open the Jupyter Notebook, navigate to your assignment folder, (activate your environment if you have/using one), and run `jupyter notebook`. 
 
@@ -48,18 +47,18 @@ The grade you receive for the assignment will be distributed as follows:
 
 
 ## Due Date
-The assignment is due **November 11th, 2018 at 11:59PM UTC-12 (Anywhere on Earth time)**. The deliverable for this assignment is a completed mixture_models.ipynb file.
+The assignment is due **March 31st, 2019 at 11:59PM UTC-12 (Anywhere on Earth time)**. The deliverable for this assignment is a completed mixture_models.ipynb file.
 
 ## Submission
 The tests for the assignment are provided in `mixture_tests.py`, all of the tests are already embedded into the respective ipython notebook cells, so the will be running automaticagically when you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation, so Bonnie is only for submission purposes. The tests on Bonnie will be similar to the ones provided here, but the images and data being tested against, and the values for calculations will be different.
 
-#### Thus, you will be allowed only 5 submissions on Bonnie. Make sure you test everything before submitting. The code will be allowed to run for not more than 1 hour per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
+#### You will be allowed only 5 submissions on Bonnie. Make sure you test everything before submitting. The code will be allowed to run for not more than 1 hour per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
 
 ### Since there are only 5 submissions allowed, your BEST submission will be used for the assignment grade.
 
 To submit your code to Bonnie run:
 
-`python submit.py`
+`python3 submit.py`
 
 As a backup, please also submit generated `mixture_models.ipynb` file to Canvas.
 
