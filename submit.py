@@ -19,24 +19,29 @@ HONOR_PLEDGE = \
     past or current student.\"
   """
 
+try:
+    input = raw_input
+except NameError:
+    pass
 
 def require_pledges():
     print(LATE_POLICY)
-    ans = raw_input("Please type 'yes' to agree and continue>")
+    ans = input("Please type 'yes' to agree and continue>")
 
     if ans != "yes":
         raise RuntimeError("Late policy not accepted.")
 
     print
     print(HONOR_PLEDGE)
-    ans = raw_input("Please type 'yes' to agree and continue>")
+    ans = input("Please type 'yes' to agree and continue>")
     if ans != "yes":
         raise RuntimeError("Honor pledge not accepted")
     print
 
 
 def main():
-    filenames = ["mixture_models.py"]
+    filenames = ['mixture_models.ipynb']
+    
     require_pledges()
 
     submit('cs6601', 'assignment_5', filenames)
