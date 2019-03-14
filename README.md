@@ -8,7 +8,7 @@ Expectation Maximization - Assignment 5 - CS6601
 
 Clone this repository:
 
-`git clone https://github.gatech.edu/omscs6601/assignment_5_online.git`
+`git clone https://github.gatech.edu/omscs6601/assignment_5.git`
 
 The grading script runs with Python 3.6.7
 (Do not use any version of Python 2.X)
@@ -17,8 +17,8 @@ The grading script runs with Python 3.6.7
 
 ```bash
 pip3 install virtualenv
-virtualenv assignment_5_online
-source assignment_5_online/bin/activate 
+virtualenv assignment_5
+source assignment_5/bin/activate 
 ```
 #### Requirements: 
 Next you should install python packages listed in `requirements.txt`. You can install them using the command below:
