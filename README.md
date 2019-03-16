@@ -56,9 +56,13 @@ The tests for the assignment are provided in `mixture_tests.py`, all of the test
 
 ### Since there are only 5 submissions allowed, your BEST submission will be used for the assignment grade.
 
-To submit your code to Bonnie run:
+To submit your assignment code to Bonnie run:
 
 `python3 submit.py`
+
+To submit your bonus code to Bonnie run:
+
+`python3 submit_bonus.py`
 
 As a backup, please also submit generated `mixture_models.ipynb` file to Canvas.
 
