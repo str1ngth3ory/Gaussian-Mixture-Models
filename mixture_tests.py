@@ -55,6 +55,9 @@ class K_means_test(unittest.TestCase):
             self.assertEqual(means.shape, (k, n),
                              msg=("Initialization for %d dimensional array "
                                   "with %d clusters returned an matrix of an incompatible dimension.") % (n, k))
+            for mean in means:
+                self.assertTrue(any(np.equal(image_values, mean).all(1)), 
+                                msg=("Means should be points from given array"))
         print_success_message()
 
     def test_k_means_step(self, k_means_step):
@@ -185,6 +188,9 @@ class GMMTests(unittest.TestCase):
                         msg="Incorrect variance dimensions")
         self.assertTrue(means.shape == (num_components, n),
                         msg="Incorrect mean dimensions")
+        for mean in means:
+            self.assertTrue(any(np.equal(image_matrix, mean).all(1)), 
+                                    msg=("Means should be points from given array"))
         self.assertTrue(mixing_coefficients.sum() == 1,
                         msg="Incorrect mixing coefficients, make all coefficient sum to 1")
         print_success_message()
@@ -203,11 +209,13 @@ class GMMTests(unittest.TestCase):
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
-        mean = np.array([0.0627451, 0.10980392, 0.54901963])
+        mean = np.array([[0.0627451, 0.10980392, 0.54901963]])
         covariance = np.array([[0.28756526, 0.13084501, -0.09662368],
                                [0.13084501, 0.11177602, -0.02345659],
                                [-0.09662368, -0.02345659, 0.11303925]])
         p = prob(image_matrix[0], mean, covariance)
+        if len(p.shape) > 0:
+            p = p.item(0)
         self.assertEqual(round(p, 5), 0.57693,
                          msg="Incorrect probability value returned.")
         print_success_message()
@@ -255,7 +263,7 @@ class GMMTests(unittest.TestCase):
         self.assertTrue(np.allclose(r.sum(axis=0), 1),
                         msg="Incorrect responsibility values, columns are not normalized.")
         self.assertTrue(np.allclose(r.sum(axis=1), expected_r_rows),
-                        msg="Incorrect responsibility values, columns are not normalized.")
+                        msg="Incorrect responsibility values, rows are not normalized.")
         print_success_message()
 
     def test_gmm_m_step(self, M_step):
@@ -383,6 +391,7 @@ class GMMTests(unittest.TestCase):
                                  [0.03036055, 0.06499729, 0.06576895],
                                  [-0.09287403, 0.06576895, 0.49017089]]])
         pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
+        
         initial_lkl = likelihood(image_matrix, pis, means, covariances, num_components)
         MU, SIGMA, PI, r = train_model(image_matrix, num_components,
                                        convergence_function=default_convergence,
@@ -413,10 +422,14 @@ class GMMTests(unittest.TestCase):
                                        convergence_function=default_convergence)
 
         segment = segment(image_matrix, MU, num_components, r)
-
+        
         segment_num_components = len(np.unique(segment, axis=0))
         self.assertTrue(segment_num_components == r.shape[0],
                         msg="Incorrect number of image segments produced")
+        segment_sort = np.sort(np.unique(segment, axis=0), axis=0)
+        mu_sort = np.sort(MU, axis=0)
+        self.assertTrue((segment_sort == mu_sort).all(),
+                        msg="Incorrect segment values. Should be be MU values")
         print_success_message()
 
     def test_gmm_cluster(self, cluster):
@@ -549,6 +562,7 @@ class GMMTests(unittest.TestCase):
         convergence_diff = new_convergence_likelihood - \
                            default_convergence_likelihood
         convergence_thresh = 5000
+        print(convergence_diff)
         self.assertTrue(convergence_diff >= convergence_thresh,
                         msg=("Likelihood difference between"
                              " the original and converged"
