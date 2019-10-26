@@ -232,7 +232,6 @@ class GMMTests(unittest.TestCase):
         for calculating the probability
         of a given point belonging to a
         component.
-
         returns:
         prob = float
         """
@@ -241,13 +240,11 @@ class GMMTests(unittest.TestCase):
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
-        mean = np.array([[0.0627451, 0.10980392, 0.54901963]])
+        mean = np.array([0.0627451, 0.10980392, 0.54901963])
         covariance = np.array([[0.28756526, 0.13084501, -0.09662368],
                                [0.13084501, 0.11177602, -0.02345659],
                                [-0.09662368, -0.02345659, 0.11303925]])
         p = prob(image_matrix[0], mean, covariance)
-        if len(p.shape) > 0:
-            p = p.item(0)
         self.assertEqual(round(p, 5), 0.57693,
                          msg="Incorrect probability value returned.")
         print_success_message()
@@ -594,7 +591,6 @@ class GMMTests(unittest.TestCase):
         convergence_diff = new_convergence_likelihood - \
                            default_convergence_likelihood
         convergence_thresh = 5000
-        print(convergence_diff)
         self.assertTrue(convergence_diff >= convergence_thresh,
                         msg=("Likelihood difference between"
                              " the original and converged"
