@@ -195,6 +195,38 @@ class GMMTests(unittest.TestCase):
                         msg="Incorrect mixing coefficients, make all coefficient sum to 1")
         print_success_message()
 
+    def test_gmm_covariance(self, compute_sigma):
+        ''' Testing implementation of covariance matrix
+        computation explicitly'''
+        image_file = 'images/bird_color_24.png'
+        image_matrix = image_to_matrix(image_file)
+        image_matrix = image_matrix.reshape(-1, 3)
+        m, n = image_matrix.shape
+        num_components = 5
+        MU = np.array([[0.64705884, 0.7490196,  0.7058824 ],
+                         [0.98039216, 0.3019608,  0.14509805],
+                         [0.3764706,  0.39215687, 0.28627452],
+                         [0.2784314,  0.26666668, 0.23921569],
+                         [0.16078432, 0.15294118, 0.30588236]])
+        SIGMA = np.array([[[ 0.15471499,  0.11200016,  0.04393127],
+                          [ 0.11200016,  0.22953323,  0.16426138],
+                          [ 0.04393127,  0.16426138,  0.19807944]],
+                         [[ 0.38481037,  0.0204306,  -0.12658471],
+                          [ 0.0204306,   0.06127004,  0.02783406],
+                          [-0.12658471,  0.02783406,  0.12057389]],
+                         [[ 0.13134574,  0.03346525, -0.01198761],
+                          [ 0.03346525,  0.06303026,  0.01652109],
+                          [-0.01198761,  0.01652109,  0.08084702]],
+                         [[ 0.15901856,  0.05194932,  0.00383432],
+                          [ 0.05194932,  0.06501033,  0.02864332],
+                          [ 0.00383432,  0.02864332,  0.08966025]],
+                         [[ 0.21760082,  0.09526375, -0.00290086],
+                          [ 0.09526375,  0.09400968,  0.02967787],
+                          [-0.00290086,  0.02967787,  0.07848203]]])
+        self.assertTrue(np.allclose(SIGMA, compute_sigma(image_matrix, MU)),
+                        msg="Incorrect covariance matrix.")
+        print_success_message()
+        
     def test_gmm_prob(self, prob):
         """Testing the GMM method
         for calculating the probability
