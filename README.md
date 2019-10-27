@@ -38,10 +38,10 @@ Project description and all of the functions required to implement you will find
 
 The grade you receive for the assignment will be distributed as follows:
 
-1. k-Means Clustering (19 points)
-2. Gaussian Mixture Model (40 points)
+1. k-Means Clustering (20 points)
+2. Gaussian Mixture Model (48 points)
 3. Model Performance Improvements (20 points)
-4. Bayesian Information Criterion (20 points)
+4. Bayesian Information Criterion (12 points)
 5. Return your name (1 point)
 6. Bonus (+5 points) (Bonus points are added to this assignment's grade and not to the overall grade.)
 
