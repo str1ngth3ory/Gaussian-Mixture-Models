@@ -13,22 +13,17 @@ Clone this repository:
 The grading script runs with Python 3.6.7
 (Do not use any version of Python 2.X)
 
-#### Recommended - Use a virtualenv:
+Please use the same environment from previous assignments by running
 
-```bash
-pip3 install virtualenv
-virtualenv assignment_5
-source assignment_5/bin/activate 
 ```
-#### Requirements: 
-Next you should install python packages listed in `requirements.txt`. You can install them using the command below:
+conda activate ai_env
+```
 
-`pip3 install -r requirements.txt`
+If you wish to run the supplementary testing notebook, you will need jupyter installed and can call the following command from your downloaded repository and select unit_testing:
 
-#### Jupyter Notebook:
-In order to complete this assignment, you will be using **jupyter notebook** instead of **.py** scripts as you did in earlier assignments. 
-
-To open the Jupyter Notebook, navigate to your assignment folder, (activate your environment if you have/using one), and run `jupyter notebook`. 
+```
+jupyter notebook
+```
 
 Project description and all of the functions required to implement you will find in the `solution.ipynb` file.
 
@@ -38,16 +33,12 @@ Project description and all of the functions required to implement you will find
 
 The grade you receive for the assignment will be distributed as follows:
 
-1. k-Means Clustering (20 points)
+1. k-Means Clustering (19 points)
 2. Gaussian Mixture Model (48 points)
 3. Model Performance Improvements (20 points)
 4. Bayesian Information Criterion (12 points)
 5. Return your name (1 point)
 6. Bonus (+5 points) (Bonus points are added to this assignment's grade and not to the overall grade.)
-
-
-## Due Date
-The assignment is due **November 12th, 2019 at 11:59 PM UTC-12(AOE)**. The deliverable for this assignment is a completed solution.ipynb file.
 
 ## Submission
 The tests for the assignment are provided in `mixture_tests.py`, all of the tests are already embedded into the respective ipython notebook cells, so the will be running automaticagically when you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation. The tests on Gradescope will be similar to the ones provided here, but the images and data being tested against, and the values for calculations will be different.
@@ -62,7 +53,7 @@ In your Gradescope submission history, you can mark a certain submission as 'Act
 
 #### Do NOT erase the #export at the top of any cells as it is used by notebook2script.py to extract cells for submission.
 
-#### You will be allowed 1 submission per hour on gradescope. Make sure you test everything before submitting. The code will be allowed to run for not more than 40 minutes per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
+#### You will be allowed 3 submission every 3 hours on gradescope. Make sure you test everything before submitting. The code will be allowed to run for not more than 40 minutes per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
 
 As a backup, please also submit generated `solution.ipynb` file to Canvas.
 
