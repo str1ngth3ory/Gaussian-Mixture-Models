@@ -19,11 +19,10 @@ Please use the same environment from previous assignments by running
 conda activate ai_env
 ```
 
-If you wish to run the supplementary testing notebook, you will need jupyter installed and can call the following command from your downloaded repository and select unit_testing:
+#### Jupyter Notebook:
+In order to complete this assignment, you will be using **jupyter notebook**.
 
-```
-jupyter notebook
-```
+To open the Jupyter Notebook, navigate to your assignment folder, (activate your environment if you have/using one), and run `jupyter notebook`. 
 
 Project description and all of the functions required to implement you will find in the `solution.ipynb` file.
 
