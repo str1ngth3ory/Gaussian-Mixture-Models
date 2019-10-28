@@ -10,9 +10,6 @@ Clone this repository:
 
 `git clone https://github.gatech.edu/omscs6601/assignment_5.git`
 
-The grading script runs with Python 3.6.7
-(Do not use any version of Python 2.X)
-
 Please use the same environment from previous assignments by running
 
 ```
