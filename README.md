@@ -54,8 +54,6 @@ In your Gradescope submission history, you can mark a certain submission as 'Act
 
 #### You will be allowed 3 submission every 3 hours on gradescope. Make sure you test everything before submitting. The code will be allowed to run for not more than 40 minutes per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
 
-As a backup, please also submit generated `solution.ipynb` file to Canvas.
-
 
 ## Resources
 
