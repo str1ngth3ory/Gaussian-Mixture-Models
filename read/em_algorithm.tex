@@ -9,7 +9,7 @@
 \maketitle
 
 \section{Introduction}
-The purpose of this write up is to provide intuition on the theory behind the EM algorithm, specifically with respect to Gaussian Mixture Models. The EM algorithm is a general purpose algorithm which allows one to iteratively compute maximum likelihood estimators for statistical distributions. In our case, we are concerned with the maximum likelihood estimators of a Gaussian Mixture Model. We begin by describing the pdf of the Gaussian Mixture Model, for which we intend to estimate parameters. We then proceed to sketch out the proof of the EM algorithm (e.g. why it finds the MLE).
+The purpose of this write up is to provide intuition on the theory behind the EM algorithm, specifically with respect to Gaussian Mixture Models. The EM algorithm is a general purpose algorithm which allows one to iteratively compute maximum likelihood estimators for statistical distributions. In our case, we are concerned with the Maximum Likelihood Estimators (MLEs) of a Gaussian Mixture Model. The MLE of a parameter of some pdf (for those who need a recap) is the most probable value for that parameter, given some dataset. We begin by describing the pdf of the Gaussian Mixture Model, for which we intend to estimate parameters. We then proceed to sketch out the proof of the EM algorithm (e.g. why it finds the MLE).
 
 \section{Gaussian Mixture Model PDF}
 The Gaussian Mixture Model's pdf looks like this:
@@ -86,7 +86,7 @@ We can now compute an explicit form for $q(z_{1}, \ldots z_{n})$. We have that
 Expanding $p(z_{i} | x_{i}, \theta)$, we have
 \begin{align*}
 	\tau_{ik} = p(z_{i} = k | x_{i})
-		&= \frac{p(z_{i} = k, x_{i})}{\sum\limits_{k' \in K} p(z_{i} = k', x_{i}} \\
+		&= \frac{p(z_{i} = k, x_{i})}{\sum\limits_{k' \in K} p(z_{i} = k', x_{i})} \\
 		&= \frac{\pi_{k} \mathcal{N}(x_{i} | \mu_{k} \Sigma_{k})}{\sum\limits_{k' \in K} \pi_{k'} \mathcal{N}(x_{i} | \mu_{k'} \Sigma_{k'})} \\
 \end{align*}
 Now, we can use the above to compute the expectation, which we can call $f(\theta)$:
@@ -120,7 +120,14 @@ Likewise, forming a Lagrangian and solving for $\mu_{k}$ and $\Sigma_{k}$, we ge
 This completes the maximization step as well.
 
 \section{Concluding Remarks}
-To conclude, Expectation Maximization starts with an initial (uneducated) guess and repeatedly computes the posterior of each component and the parameters of the model such that the expected value of the log likelihood is maximized on each step. This enables the algorithm to eventually converge to a local maxima, though repeated random initializations may be necessary in order to find a global (or at least a better local) optimum.
+Expectation Maximization starts with an initial (uneducated) guess and repeatedly computes the posterior of each component and the parameters of the model such that the expected value of the log likelihood is maximized on each step. This enables the algorithm to eventually converge to a local maxima, though repeated random initializations may be necessary in order to find a global (or at least a better local) optimum.
 
+\newpage
+\begin{thebibliography}{1}
+\bibitem{lan}
+	George Lan,
+	\textit{Mixture of Gaussian and the EM Algorithm},
+	CSE 6740 Course Notes
+\end{thebibliography}
 
 \end{document}
