@@ -60,6 +60,7 @@ class K_means_test(unittest.TestCase):
                                 msg=("Means should be points from given array"))
         print_success_message()
 
+
     def test_k_means_step(self, k_means_step):
         initial_means = [
             np.array([[0.90980393, 0.8392157, 0.65098041],
@@ -195,6 +196,7 @@ class GMMTests(unittest.TestCase):
                         msg="Incorrect mixing coefficients, make all coefficient sum to 1")
         print_success_message()
 
+
     def test_gmm_covariance(self, compute_sigma):
         ''' Testing implementation of covariance matrix
         computation explicitly'''
@@ -226,6 +228,7 @@ class GMMTests(unittest.TestCase):
         self.assertTrue(np.allclose(SIGMA, compute_sigma(image_matrix, MU)),
                         msg="Incorrect covariance matrix.")
         print_success_message()
+
         
     def test_gmm_prob(self, prob):
         """Testing the GMM method
@@ -248,6 +251,7 @@ class GMMTests(unittest.TestCase):
         self.assertEqual(round(p, 5), 0.57693,
                          msg="Incorrect probability value returned.")
         print_success_message()
+
 
     def test_gmm_e_step(self, E_step):
         """Testing the E-step implementation
@@ -295,6 +299,7 @@ class GMMTests(unittest.TestCase):
                         msg="Incorrect responsibility values, rows are not normalized.")
         print_success_message()
 
+
     def test_gmm_m_step(self, M_step):
         """Testing the M-step implementation
 
@@ -335,6 +340,7 @@ class GMMTests(unittest.TestCase):
         self.assertTrue(np.allclose(sigma, expected_SIGMA),
                         msg="Incorrect new covariance matrix.")
         print_success_message()
+
 
     def test_gmm_likelihood(self, likelihood):
         """Testing the GMM method
@@ -377,10 +383,11 @@ class GMMTests(unittest.TestCase):
                                  [-0.09287403, 0.06576895, 0.49017089]]])
         pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
         lkl = likelihood(image_matrix, pis, means, covariances, num_components)
-        self.assertEqual(np.round(lkl), -23943.0,
-                         msg="Incorrect likelihood value returned")
+        self.assertEqual(np.round(lkl), -55131.0,
+                         msg="Incorrect likelihood value returned. Make sure to use natural log")
         # expected_lkl =
         print_success_message()
+
 
     def test_gmm_train(self, train_model, likelihood):
         """Test the training
@@ -639,7 +646,53 @@ class GMMTests(unittest.TestCase):
 
         b_i_c = bayes_info_criterion(image_matrix , pis, means, covariances, num_components)
 
-        self.assertTrue(np.isclose(48500, b_i_c, atol=500),
+        self.assertTrue(np.isclose(110836, b_i_c, atol=100),
+                         msg="BIC calculation incorrect.")
+        print_success_message()
+
+
+    def test_bic_likelihood(self, bayes_info_criterion):
+        """
+        Test for your implementation of
+        BIC on fixed GMM values.
+
+
+        returns:
+        BIC = float
+        """
+
+        image_file = 'images/bird_color_24.png'
+        image_matrix = image_to_matrix(image_file).reshape(-1, 3)
+        num_components = 5
+        means = np.array([[0.34901962, 0.3647059, 0.30588236],
+                          [0.9882353, 0.3254902, 0.19607843],
+                          [1., 0.6117647, 0.5019608],
+                          [0.37254903, 0.3882353, 0.2901961],
+                          [0.3529412, 0.40784314, 1.]])
+        covariances = np.array([[[0.13715639, 0.03524152, -0.01240736],
+                                 [0.03524152, 0.06077217, 0.01898307],
+                                 [-0.01240736, 0.01898307, 0.07848206]],
+
+                                [[0.3929004, 0.03238055, -0.10174976],
+                                 [0.03238055, 0.06016063, 0.02226048],
+                                 [-0.10174976, 0.02226048, 0.10162983]],
+
+                                [[0.40526569, 0.18437279, 0.05891556],
+                                 [0.18437279, 0.13535137, 0.0603222],
+                                 [0.05891556, 0.0603222, 0.09712359]],
+
+                                [[0.13208355, 0.03362673, -0.01208926],
+                                 [0.03362673, 0.06261538, 0.01699577],
+                                 [-0.01208926, 0.01699577, 0.08031248]],
+
+                                [[0.13623408, 0.03036055, -0.09287403],
+                                 [0.03036055, 0.06499729, 0.06576895],
+                                 [-0.09287403, 0.06576895, 0.49017089]]])
+        pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
+
+        b_i_c = bayes_info_criterion(image_matrix , pis, means, covariances, num_components)
+
+        self.assertTrue(np.isclose(110836, b_i_c, atol=100),
                          msg="BIC calculation incorrect.")
         print_success_message()
 
