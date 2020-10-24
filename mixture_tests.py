@@ -240,13 +240,39 @@ class GMMTests(unittest.TestCase):
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
-        mean = np.array([0.0627451, 0.10980392, 0.54901963])
-        covariance = np.array([[0.28756526, 0.13084501, -0.09662368],
-                               [0.13084501, 0.11177602, -0.02345659],
-                               [-0.09662368, -0.02345659, 0.11303925]])
-        p = prob(image_matrix[0], mean, covariance)
-        self.assertEqual(round(p, 5), 0.57693,
-                         msg="Incorrect probability value returned.")
+        mean = np.array([[0.0869607, 0.94037405, 0.83581867],
+                        [0.1456052,  0.41992647, 0.24443071],
+                        [0.26500585, 0.94133581, 0.4611865 ],
+                        [0.96036384, 0.92600731, 0.86839219],
+                        [0.49864549, 0.86764655, 0.44904117]])
+        covariance = np.array([[[0.86971658, 0.13012001, 0.07143409],
+                                [0.13012001,  0.92192031 , 0.52077771],
+                                [0.07143409,  0.52077771, 0.7613642 ]],
+
+                                [[ 0.11917541,  0.24233884,  0.17951107,],
+                                [ 0.24233884,  -0.26058822,  0.54239649,],
+                                [ 0.17951107,  0.54239649,  0.07097909]],
+
+                                [[ -0.57278399, 0.56391565, 0.32422302],
+                                [0.56391565,  0.15943078,  0.54252959],
+                                [0.32422302,  0.54252959,  0.13831223]],
+
+                                [[ 0.51786637, 0.15113272, 0.15761939],
+                                [0.15113272,  0.66123918,  0.21901519],
+                                [0.15761939,  0.21901519,  0.44857306]],
+
+                                [[ 0.76229666, 0.63553823, 0.05117911],
+                                [ 0.63553823,  0.99077293 , 0.36153212],
+                                [0.05117911,  0.36153212, 0.68166971]]] )
+        # Single Input
+        p = prob(image_matrix[0], mean[0], covariance[0])
+        self.assertEqual(round(p, 5), 0.06599,
+                         msg="Incorrect probability value returned for single input.")                        
+        # Multiple Input
+        p = prob(image_matrix[0:5], mean, covariance)
+
+        self.assertEqual(list(np.round(p, 5)), [0.06599, 0.59211, 0.09038, 0.06263, 0.11843],
+                         msg="Incorrect probability value returned for multiple input.")
         print_success_message()
 
     def test_gmm_e_step(self, E_step):
