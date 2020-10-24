@@ -515,11 +515,10 @@ class GMMTests(unittest.TestCase):
         # and extract its likelihood
         best_likelihood, best_seg = best_segment(image_matrix, num_components, iters)
 
-        ref_likelihood = 40000
-
+        ref_likelihood = 35000
         # # compare best likelihood and reference likelihood
         likelihood_diff = best_likelihood - ref_likelihood
-        likelihood_thresh = 5000
+        likelihood_thresh = 4000
         self.assertTrue(likelihood_diff >= likelihood_thresh,
                         msg=("Image segmentation failed to improve baseline "
                              "by at least %.2f" % likelihood_thresh))
@@ -646,7 +645,7 @@ class GMMTests(unittest.TestCase):
 
         b_i_c = bayes_info_criterion(image_matrix , pis, means, covariances, num_components)
 
-        self.assertTrue(np.isclose(110836, b_i_c, atol=100),
+        self.assertTrue(np.isclose(110835, b_i_c, atol=100),
                          msg="BIC calculation incorrect.")
         print_success_message()
 
@@ -692,7 +691,7 @@ class GMMTests(unittest.TestCase):
 
         b_i_c = bayes_info_criterion(image_matrix , pis, means, covariances, num_components)
 
-        self.assertTrue(np.isclose(110836, b_i_c, atol=100),
+        self.assertTrue(np.isclose(110835, b_i_c, atol=100),
                          msg="BIC calculation incorrect.")
         print_success_message()
 
