@@ -1,5 +1,3 @@
-**The assignment is not yet released for the Fall 2020 and might be subject to change.**
-
 # Assignment 5 - Expectation Maximization
 
 Expectation Maximization - Assignment 5 - CS6601 
