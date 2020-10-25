@@ -565,8 +565,8 @@ class GMMTests(unittest.TestCase):
                              "%d higher than original model" % diff_thresh))
         print_success_message()
 
-    def test_convergence_condition(self, improved_initialization, train_model_improved, initialize_parameters,
-                                   train_model, likelihood, conv_check):
+    def test_convergence_condition(self, initialize_parameters, E_step, M_step,
+                                   new_convergence_function):
         """
         Compare the performance of
         the default convergence function
@@ -579,28 +579,21 @@ class GMMTests(unittest.TestCase):
         image_file = 'images/bird_color_24.png'
         image_matrix = image_to_matrix(image_file).reshape(-1, 3)
         num_components = 5
-        initial_means, initial_sigma, initial_pi = initialize_parameters(image_matrix, num_components)
-        # first train original model with fixed means
-        reg_MU, reg_SIGMA, reg_PI, reg_r = train_model(image_matrix, num_components,
-                                                       convergence_function=default_convergence,
-                                                       initial_values=(initial_means, initial_sigma, initial_pi))
+        startValues = initialize_parameters(image_matrix, num_components)
+        prevParams = np.empty(shape=3, dtype=object)
+        convCounter = 0  # A counter to keep track of how much convergence has happened
+        convergence = False  # Keeps track of whether convergence has happened or not
+        convergence_thresh = 10
+        for i in range(2500):
+            convCounter, convergence = new_convergence_function(prevParams, startValues, convCounter, convergence_thresh)
+            if convergence:
+                break
+            prevParams = startValues
+            resp = E_step(image_matrix, startValues[0], startValues[1], startValues[2], num_components)
+            startValues = M_step(image_matrix, resp, num_components)
 
-        improved_params = improved_initialization(image_matrix, num_components)
-        # # then train improved model
-        imp_MU, imp_SIGMA, imp_PI, imp_r = train_model_improved(image_matrix, num_components,
-                                                                convergence_function=conv_check,
-                                                                initial_values=improved_params)
-
-        default_convergence_likelihood = likelihood(image_matrix, reg_PI, reg_MU, reg_SIGMA, num_components)
-        new_convergence_likelihood = likelihood(image_matrix, imp_PI, imp_MU, imp_SIGMA, num_components)
-        # # test convergence difference
-        convergence_diff = new_convergence_likelihood - \
-                           default_convergence_likelihood
-        convergence_thresh = 5000
-        self.assertTrue(convergence_diff >= convergence_thresh,
-                        msg=("Likelihood difference between"
-                             " the original and converged"
-                             " models less than %.2f" % convergence_thresh))
+        self.assertTrue(convCounter >= convergence_thresh,
+                        msg=("Model converged earlier than expected"))
         print_success_message()
 
     def test_bayes_info(self, bayes_info_criterion):
@@ -608,7 +601,7 @@ class GMMTests(unittest.TestCase):
         Test for your
         implementation of
         BIC on fixed GMM values.
-        Should be about 727045.
+        Should be about 110835.
 
         returns:
         BIC = float
