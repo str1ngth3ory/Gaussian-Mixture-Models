@@ -247,9 +247,16 @@ class GMMTests(unittest.TestCase):
         covariance = np.array([[0.28756526, 0.13084501, -0.09662368],
                                [0.13084501, 0.11177602, -0.02345659],
                                [-0.09662368, -0.02345659, 0.11303925]])
+        # Single Input
         p = prob(image_matrix[0], mean, covariance)
         self.assertEqual(round(p, 5), 0.57693,
-                         msg="Incorrect probability value returned.")
+                         msg="Incorrect probability value returned for single input.")
+                         
+        # Multiple Input
+        p = prob(image_matrix[0:5], mean, covariance)
+        self.assertEqual(list(np.round(p, 5)), [0.57693, 0.54750, 0.60697, 0.59118, 0.62980],
+                         msg="Incorrect probability value returned for multiple input.")
+        
         print_success_message()
 
 
