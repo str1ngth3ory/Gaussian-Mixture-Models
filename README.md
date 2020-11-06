@@ -56,7 +56,7 @@ In your Gradescope submission history, you can mark certain submissions as **Act
 
 ## Resources
 
-1. Udacity lectures on Unsupervised Learning (Lesson 7)
+1. Canvas lectures on Unsupervised Learning (Lesson 7)
 2. The `gaussians.pdf`  in the `read/` folder will introduce you to multivariate normal distributions.
 3. A youtube video by Alexander Ihler, on multivariate EM algorithm details:
 [https://www.youtube.com/watch?v=qMTuMa86NzU](https://www.youtube.com/watch?v=qMTuMa86NzU)
