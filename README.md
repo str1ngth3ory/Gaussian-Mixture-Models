@@ -4,7 +4,9 @@
 
 Expectation Maximization - Assignment 5 - CS6601 
 
-<img src="images/k6_bird_color_24.png" width="400"/> <img src="images/pcd_clustered.gif" width="400"/> 
+<img src="images/k6_Starry.png" width="400"/> <br />
+
+<img src="images/pcd_clustered.gif" width="400"/> 
 
 # Setup
 
