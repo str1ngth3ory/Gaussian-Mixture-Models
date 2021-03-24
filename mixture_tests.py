@@ -320,7 +320,7 @@ class GMMTests(unittest.TestCase):
         mu = numpy.ndarray[numpy.ndarray[float]]
         sigma = numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         """
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         num_components = 3
@@ -333,18 +333,18 @@ class GMMTests(unittest.TestCase):
                        0.38167342, 0.3867723, 0.38819173, 0.39911622, 0.39739164]])
         mu, sigma, pi = M_step(image_matrix[:10], r, num_components)
         expected_PI = np.array([0.50274825, 0.11052739, 0.38672437])
-        expected_MU = np.array([[0.12401373, 0.12246745, 0.11884939],
-                                [0.12509098, 0.12350831, 0.12009721],
-                                [0.1244816, 0.12288793, 0.11943994]])
-        expected_SIGMA = np.array([[[0.00014082, 0.00011489, 0.00013914],
-                                    [0.00011489, 0.00014875, 0.00013629],
-                                    [0.00013914, 0.00013629, 0.00017721]],
-                                   [[0.00014278, 0.00011441, 0.00014151],
-                                    [0.00011441, 0.00014355, 0.00013533],
-                                    [0.00014151, 0.00013533, 0.00018113]],
-                                   [[0.00014206, 0.0001155, 0.00014097],
-                                    [0.0001155, 0.00014746, 0.00013691],
-                                    [0.00014097, 0.00013691, 0.00018029]]])
+        expected_MU = np.array([[0.15787668, 0.22587548, 0.23974434],
+                                [0.15651327, 0.22400117, 0.23191456],
+                                [0.1576726,  0.2254149,  0.23655895]])
+        expected_SIGMA = np.array([[[0.01099723, 0.0115452,  0.00967741],
+                                    [0.0115452,  0.01219342, 0.01038057],
+                                    [0.00967741, 0.01038057, 0.01508434]],
+                                    [[0.01020192, 0.010746,   0.00888965],
+                                    [0.010746,   0.01139497, 0.00961631],
+                                    [0.00888965, 0.00961631, 0.01457653]],
+                                    [[0.01070972, 0.01125898, 0.00943508],
+                                    [0.01125898, 0.01191069, 0.01015814],
+                                    [0.00943508, 0.01015814, 0.01503744]]])
         self.assertTrue(np.allclose(pi, expected_PI),
                         msg="Incorrect new coefficient matrix.")
         self.assertTrue(np.allclose(mu, expected_MU),
@@ -358,13 +358,13 @@ class GMMTests(unittest.TestCase):
         """Testing the GMM method
         for calculating the overall
         model probability.
-        Should return -364370.
+        Should return -46437.
 
         returns:
         likelihood = float
         """
 
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         num_components = 5
@@ -395,7 +395,7 @@ class GMMTests(unittest.TestCase):
                                  [-0.09287403, 0.06576895, 0.49017089]]])
         pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
         lkl = likelihood(image_matrix, pis, means, covariances, num_components)
-        self.assertEqual(np.round(lkl), -55131.0,
+        self.assertEqual(np.round(lkl), -46437.0,
                          msg="Incorrect likelihood value returned. Make sure to use natural log")
         # expected_lkl =
         print_success_message()
@@ -408,7 +408,7 @@ class GMMTests(unittest.TestCase):
         returns:
         gmm = GaussianMixtureModel
         """
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         num_components = 5
@@ -462,7 +462,7 @@ class GMMTests(unittest.TestCase):
         returns:
         segmented_matrix = numpy.ndarray[numpy.ndarray[float]]
         """
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file).reshape(-1, 3)
         num_components = 5
 
@@ -477,7 +477,7 @@ class GMMTests(unittest.TestCase):
         segment_sort = np.sort(np.unique(segment, axis=0), axis=0)
         mu_sort = np.sort(MU, axis=0)
         self.assertTrue((segment_sort == mu_sort).all(),
-                        msg="Incorrect segment values. Should be be MU values")
+                        msg="Incorrect segment values. Should be MU values")
         print_success_message()
 
     def test_gmm_cluster(self, cluster):
@@ -518,7 +518,7 @@ class GMMTests(unittest.TestCase):
         best_seg = np.ndarray[np.ndarray[float]]
         """
 
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         original_image_matrix = image_to_matrix(image_file)
         image_matrix = original_image_matrix.reshape(-1, 3)
         num_components = 3
@@ -550,7 +550,7 @@ class GMMTests(unittest.TestCase):
         improved_segment = numpy.ndarray[numpy.ndarray[float]]
         """
 
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file).reshape(-1, 3)
         num_components = 5
         np.random.seed(0)
@@ -588,7 +588,7 @@ class GMMTests(unittest.TestCase):
         default_convergence_likelihood = float
         new_convergence_likelihood = float
         """
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file).reshape(-1, 3)
         num_components = 5
         initial_means, initial_sigma, initial_pi = initialize_parameters(image_matrix, num_components)
@@ -620,13 +620,13 @@ class GMMTests(unittest.TestCase):
         Test for your
         implementation of
         BIC on fixed GMM values.
-        Should be about 727045.
+        Should be about 93416.
 
         returns:
         BIC = float
         """
 
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file).reshape(-1, 3)
         num_components = 5
         means = np.array([[0.34901962, 0.3647059, 0.30588236],
@@ -657,7 +657,7 @@ class GMMTests(unittest.TestCase):
 
         b_i_c = bayes_info_criterion(image_matrix , pis, means, covariances, num_components)
 
-        self.assertTrue(np.isclose(110835, b_i_c, atol=100),
+        self.assertTrue(np.isclose(93416, b_i_c, atol=100),
                          msg="BIC calculation incorrect.")
         print_success_message()
 
