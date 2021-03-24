@@ -47,7 +47,7 @@ class K_means_test(unittest.TestCase):
         pass
 
     def test_initial_means(self, initial_means):
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_values = image_to_matrix(image_file).reshape(-1, 3)
         m, n = image_values.shape
         for k in range(1, 10):
@@ -84,33 +84,33 @@ class K_means_test(unittest.TestCase):
         ]
 
         expected_new_means = [
-            np.array([[0.954027, 0.46203843, 0.22550906],
-                      [0.27400663, 0.28729942, 0.40885332]]),
-            np.array([[0.93051314, 0.88417423, 0.36199632],
-                      [0.4807488, 0.57399386, 0.92681587],
-                      [0.4355678, 0.27258742, 0.29021215]]),
-            np.array([[0.93003845, 0.88480246, 0.35687384],
-                      [0.46192682, 0.55563807, 0.92357367],
-                      [0.4355678, 0.27258742, 0.29021215],
-                      [0.81017733, 0.87135339, 0.95991331]]),
-            np.array([[0.93003845, 0.88480246, 0.35687384],
-                      [0.46192682, 0.55563807, 0.92357367],
-                      [0.62516654, 0.35561383, 0.28908807],
-                      [0.81017733, 0.87135339, 0.95991331],
-                      [0.12563141, 0.13679598, 0.29207909]]),
-            np.array([[0.936167, 0.94245672, 0.33339596],
-                      [0.4587802, 0.55248123, 0.93013507],
-                      [0.62435812, 0.35411939, 0.28870562],
-                      [0.81017733, 0.87135339, 0.95991331],
-                      [0.12563141, 0.13679598, 0.29207909],
-                      [0.88033324, 0.72848517, 0.42817175]])
+            np.array([[0.80551694, 0.69010299, 0.17438512],
+                      [0.33569541, 0.45309059, 0.52275014]]),
+            np.array([[0.82325169, 0.83027274, 0.49915016],
+                      [0.5706171,  0.70232249, 0.72329472],
+                      [0.25756221, 0.35204852, 0.40436148]]),
+            np.array([[0.81913559, 0.82433047, 0.48307031],
+                      [0.56450876, 0.69757995, 0.71964568],
+                      [0.25756221, 0.35204852, 0.40436148],
+                      [0.80715786, 0.88434938, 0.8546841 ]]),
+            np.array([[0.81913559, 0.82433047, 0.48307031],
+                      [0.56450876, 0.69757995, 0.71964568],
+                      [0.37062106, 0.48453161, 0.5107251 ],
+                      [0.80715786, 0.88434938, 0.8546841 ],
+                      [0.09686573, 0.16374335, 0.25318128]]),
+            np.array([[0.89840523, 0.87403922, 0.52888891],
+                      [0.5291115,  0.68206999, 0.76917248],
+                      [0.36574703, 0.480494,   0.51145273],
+                      [0.80699967, 0.8843717,  0.85660891],
+                      [0.09686573, 0.16374335, 0.25318128],
+                      [0.68161022, 0.74824015, 0.55152448]])
         ]
 
-        expected_cluster_sums = [70545, 176588, 177891, 241253, 250122]
+        expected_cluster_sums = [111069, 195753, 197783, 263443, 303357]
 
         k_min = 2
         k_max = 6
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_values = image_to_matrix(image_file).reshape(-1, 3)
         m, n = image_values.shape
         for i, k in enumerate(range(k_min, k_max + 1)):
@@ -136,7 +136,7 @@ class K_means_test(unittest.TestCase):
         k_min = 2
         k_max = 6
         image_dir = 'images/'
-        image_name = 'bird_color_24.png'
+        image_name = 'Starry.png'
         image_values = image_to_matrix(image_dir + image_name)
         # initial mean for each k value
         initial_means = [
@@ -178,7 +178,7 @@ class GMMTests(unittest.TestCase):
     def test_gmm_initialization(self, initialize_parameters):
         """Testing the GMM method
         for initializing the training"""
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
@@ -200,7 +200,7 @@ class GMMTests(unittest.TestCase):
     def test_gmm_covariance(self, compute_sigma):
         ''' Testing implementation of covariance matrix
         computation explicitly'''
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
@@ -210,21 +210,26 @@ class GMMTests(unittest.TestCase):
                          [0.3764706,  0.39215687, 0.28627452],
                          [0.2784314,  0.26666668, 0.23921569],
                          [0.16078432, 0.15294118, 0.30588236]])
-        SIGMA = np.array([[[ 0.15471499,  0.11200016,  0.04393127],
-                          [ 0.11200016,  0.22953323,  0.16426138],
-                          [ 0.04393127,  0.16426138,  0.19807944]],
-                         [[ 0.38481037,  0.0204306,  -0.12658471],
-                          [ 0.0204306,   0.06127004,  0.02783406],
-                          [-0.12658471,  0.02783406,  0.12057389]],
-                         [[ 0.13134574,  0.03346525, -0.01198761],
-                          [ 0.03346525,  0.06303026,  0.01652109],
-                          [-0.01198761,  0.01652109,  0.08084702]],
-                         [[ 0.15901856,  0.05194932,  0.00383432],
-                          [ 0.05194932,  0.06501033,  0.02864332],
-                          [ 0.00383432,  0.02864332,  0.08966025]],
-                         [[ 0.21760082,  0.09526375, -0.00290086],
-                          [ 0.09526375,  0.09400968,  0.02967787],
-                          [-0.00290086,  0.02967787,  0.07848203]]])
+        SIGMA = np.array([[[ 0.14120309,  0.13409922,  0.07928442],
+                          [ 0.13409922,  0.13596143,  0.09358084],
+                          [ 0.07928442,  0.09358084,  0.09766863]],
+
+                         [[ 0.44409867, -0.04886889, -0.20206978],
+                          [-0.04886889,  0.08191175,  0.09531033],
+                          [-0.20206978,  0.09531033,  0.18705386]],
+
+                         [[ 0.0587372,   0.05115941,  0.01780809],
+                          [ 0.05115941,  0.06062889,  0.05254236],
+                          [ 0.01780809,  0.05254236,  0.10531252]],
+
+                         [[ 0.0649982,   0.06846332,  0.04307953],
+                          [ 0.06846332,  0.09466889,  0.08934892],
+                          [ 0.04307953,  0.08934892,  0.12813057]],
+
+                         [[ 0.09788626,  0.11438698,  0.0611304 ],
+                          [ 0.11438698,  0.15272257,  0.09879004],
+                          [ 0.0611304,   0.09879004,  0.09711219]]])
+
         self.assertTrue(np.allclose(SIGMA, compute_sigma(image_matrix, MU)),
                         msg="Incorrect covariance matrix.")
         print_success_message()
@@ -239,7 +244,7 @@ class GMMTests(unittest.TestCase):
         prob = float
         """
 
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         m, n = image_matrix.shape
@@ -249,12 +254,12 @@ class GMMTests(unittest.TestCase):
                                [-0.09662368, -0.02345659, 0.11303925]])
         # Single Input
         p = prob(image_matrix[0], mean, covariance)
-        self.assertEqual(round(p, 5), 0.57693,
+        self.assertEqual(round(p, 5), 0.98605,
                          msg="Incorrect probability value returned for single input.")
                          
         # Multiple Input
         p = prob(image_matrix[0:5], mean, covariance)
-        self.assertEqual(list(np.round(p, 5)), [0.57693, 0.54750, 0.60697, 0.59118, 0.62980],
+        self.assertEqual(list(np.round(p, 5)), [0.98605, 0.78737, 1.20351, 1.35478, 0.73028],
                          msg="Incorrect probability value returned for multiple input.")
         
         print_success_message()
@@ -297,7 +302,7 @@ class GMMTests(unittest.TestCase):
                                  [-0.09287403, 0.06576895, 0.49017089]]])
         pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
         r = E_step(image_matrix, means, covariances, pis, num_components)
-        expected_r_rows = np.array([25262.04787326, 18961.31887563, 14991.17253041, 24783.52164336, 14821.93907735])
+        expected_r_rows = np.array([35184.26013053, 12110.51997221, 19475.93046123, 33416.32214795, 16778.96728808])
         self.assertEqual(round(r.sum()), m,
                          msg="Incorrect responsibility values, sum of all elements must be equal to m.")
         self.assertTrue(np.allclose(r.sum(axis=0), 1),
