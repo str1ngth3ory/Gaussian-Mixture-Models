@@ -131,7 +131,7 @@ class K_means_test(unittest.TestCase):
         """
         Testing your implementation
         of k-means on the segmented
-        bird_color_24 reference images.
+        Starry reference images.
         """
         k_min = 2
         k_max = 6
@@ -271,7 +271,7 @@ class GMMTests(unittest.TestCase):
         returns:
         r = numpy.ndarray[numpy.ndarray[float]]
         """
-        image_file = 'images/bird_color_24.png'
+        image_file = 'images/Starry.png'
         image_matrix = image_to_matrix(image_file)
         image_matrix = image_matrix.reshape(-1, 3)
         num_components = 5
