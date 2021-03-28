@@ -2,9 +2,11 @@
 
 Expectation Maximization - Assignment 5 - CS6601 
 
+<p align="center">
 <img src="images/k6_Starry.png" width="400"/> <br />
 
 <img src="images/pcd_clustered.gif" width="400"/> 
+</p>
 
 # Setup
 
