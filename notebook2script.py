@@ -39,7 +39,7 @@ def notebook2scriptSingle(fname, destination):
     # remove trailing spaces
     module = re.sub(r' +$', '', module, flags=re.MULTILINE)
     output_path = os.path.join(destination, fname_out)
-    open(output_path,'w').write(module[:-2])
+    open(output_path,'w', encoding='utf-8').write(module[:-2])
     print(f"Converted {fname} to {output_path}")
 
 LATE_POLICY = \
