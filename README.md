@@ -36,9 +36,8 @@ The grade you receive for the assignment will be distributed as follows:
 3. Model Performance Improvements (20 points)
 4. Bayesian Information Criterion (12 points)
 5. Return your name (1 point)
-6. Bonus (+5 points) (Bonus points are added to this assignment's grade and not to the overall grade)
 
-You can earn more than 100 points for the assignment if you complete the bonus part.
+**Note: For this assignment, we do not have the bonus part in order to encourage your participation in Assignment 6.**
 
 ## Submission
 The tests for the assignment are provided in `mixture_tests.py`. All the tests are already embedded into the respective ipython notebook cells, so they will run automatically whenever you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation. The tests on Gradescope will be similar to the ones provided here.
