@@ -12,7 +12,11 @@ Expectation Maximization - Assignment 5 - CS6601
 
 Clone this repository:
 
-`git clone https://github.gatech.edu/omscs6601/assignment_5.git`
+`git clone https://github.gatech.edu/spring21/cs6601_assignment-5_<your-GT-Account>`
+
+Ex: 
+
+`git clone https://github.gatech.edu/spring21/cs6601_assignment-5_abc123`
 
 Please use the same environment from previous assignments by running
 
