@@ -121,7 +121,7 @@ class K_means_test(unittest.TestCase):
             self.assertTrue(new_clusters.shape[0] == m,
                             msg="New clusters array are of an incorrect shape. Expected: %s got: %s" %
                                 (m, new_clusters.shape))
-            self.assertTrue(np.allclose(new_means, expected_new_means[i], rtol = 1e-3),
+            self.assertTrue(np.allclose(new_means, expected_new_means[i], atol = 1e-4),
                             msg="Incorrect new mean values.")
             self.assertTrue(np.sum(new_clusters) == expected_cluster_sums[i],
                             msg="Incorrect clusters prediction.")
