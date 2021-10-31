@@ -12,11 +12,7 @@ Expectation Maximization - Assignment 5 - CS6601
 
 Clone this repository:
 
-`git clone https://github.gatech.edu/spring21/cs6601_assignment-5_<your-GT-Account>`
-
-Ex: 
-
-`git clone https://github.gatech.edu/spring21/cs6601_assignment-5_abc123`
+`git clone https://github.gatech.edu/omscs6601/assignment_5.git`
 
 Please use the same environment from previous assignments by running
 
@@ -43,7 +39,7 @@ The grade you receive for the assignment will be distributed as follows:
 4. Bayesian Information Criterion (12 points)
 5. Return your name (1 point)
 
-**Note: For this assignment, we do not have the bonus part in order to encourage your participation in Assignment 6.**
+<!-- **Note: For this assignment, we do not have the bonus part in order to encourage your participation in Assignment 6.** -->
 
 ## Submission
 The tests for the assignment are provided in `mixture_tests.py`. All the tests are already embedded into the respective ipython notebook cells, so they will run automatically whenever you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation. The tests on Gradescope will be similar to the ones provided here.
