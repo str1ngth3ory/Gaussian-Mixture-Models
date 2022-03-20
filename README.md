@@ -23,9 +23,9 @@ conda activate ai_env
 #### Jupyter Notebook:
 You will be using **jupyter notebook** to complete this assignment. 
 
-To open the jupyter notebook, navigate to your assignment folder, (activate your environment if you have/using one), and run `jupyter notebook`. 
+To open the jupyter notebook, navigate to your assignment folder, activate the conda environment `conda activate ai_env`, and run `jupyter notebook`. 
 
-Project description and all of the functions required to implement you will find in the `solution.ipynb` file.
+Project description and all of the functions that you will implement are in `solution.ipynb` file.
 
 **ATTENTION:** You are free to add additional cells for debugging your implementation, however, please don't write any inline code in the cells with function declarations, only edit the section *inside* the function, which has comments like: `# TODO: finish this function`.
 
@@ -39,10 +39,10 @@ The grade you receive for the assignment will be distributed as follows:
 4. Bayesian Information Criterion (12 points)
 5. Return your name (1 point)
 
-<!-- **Note: For this assignment, we do not have the bonus part in order to encourage your participation in Assignment 6.** -->
+**Note: For this assignment, we do not have any bonuses.**
 
 ## Submission
-The tests for the assignment are provided in `mixture_tests.py`. All the tests are already embedded into the respective ipython notebook cells, so they will run automatically whenever you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation. The tests on Gradescope will be similar to the ones provided here.
+The tests for the assignment are provided in `mixture_tests.py`. All the tests are already embedded into the respective ipython notebook cells, so they will run automatically whenever you run the cells with your code. Local tests are sufficient for verifying the correctness of your implementation. The tests on Gradescope will be similar to the ones provided here. You'll need to ensure that your submissions are sufficiently vectorized so that algorithms won't time out.
 
 To get the submission file, make sure to save your notebook and run:
 
@@ -54,7 +54,7 @@ In your Gradescope submission history, you can mark certain submissions as **Act
 
 #### Do NOT erase the #export at the top of any cells as it is used by notebook2script.py to extract cells for submission.
 
-#### You will be allowed 3 submissions every 3 hours on gradescope. Make sure you test everything before submitting it. The code will be allowed to run for not more than 40 minutes per submission. In order for the code to run quickly, make sure to vectorize the code (more on this in the notebook itself).
+#### You will be allowed 3 submissions every 3 hours on gradescope. Make sure you test everything before submitting it. The code will be allowed to run for not more than 40 minutes per submission. In order for the code to run quickly, make sure to VECTORIZE the code (more on this in the notebook itself).
 
 
 ## Resources
