@@ -67,6 +67,7 @@ In your Gradescope submission history, you can mark certain submissions as **Act
 5. Numpy and vectorization related
     * [Stackexchange discussion](https://softwareengineering.stackexchange.com/questions/254475/how-do-i-move-away-from-the-for-loop-school-of-thought)
     * [Hackernoon article](https://hackernoon.com/speeding-up-your-code-2-vectorizing-the-loops-with-numpy-e380e939bed3)
+    * [Numpy einsum](https://numpy.org/doc/stable/reference/generated/numpy.einsum.html) (highly recommended)
     * [Slicing and indexing](http://scipy-lectures.org/intro/numpy/array_object.html#indexing-and-slicing)
     * [Copies and views](http://scipy-lectures.org/intro/numpy/array_object.html#copies-and-views)
     * [Fancy indexing](http://scipy-lectures.org/intro/numpy/array_object.html#fancy-indexing)
