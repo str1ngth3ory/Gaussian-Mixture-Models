@@ -345,6 +345,14 @@ class GMMTests(unittest.TestCase):
                                     [[0.01070972, 0.01125898, 0.00943508],
                                     [0.01125898, 0.01191069, 0.01015814],
                                     [0.00943508, 0.01015814, 0.01503744]]])
+        
+        self.assertTrue(np.shape(pi) == np.shape(expected_PI), 
+                        msg="Shapes of computed and expected pi mismacth.")
+        self.assertTrue(np.shape(mu) == np.shape(expected_MU), 
+                        msg="Shapes of computed and expected mu mismacth.")
+        self.assertTrue(np.shape(sigma) == np.shape(expected_SIGMA), 
+                        msg="Shapes of computed and expected sigma mismacth.")
+        
         self.assertTrue(np.allclose(pi, expected_PI),
                         msg="Incorrect new coefficient matrix.")
         self.assertTrue(np.allclose(mu, expected_MU),
