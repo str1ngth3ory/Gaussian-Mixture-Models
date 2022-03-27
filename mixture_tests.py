@@ -56,7 +56,7 @@ class K_means_test(unittest.TestCase):
                              msg=("Initialization for %d dimensional array "
                                   "with %d clusters returned an matrix of an incompatible dimension.") % (n, k))
             for mean in means:
-                self.assertTrue(any(np.equal(image_values, mean).all(1)), 
+                self.assertTrue(any(np.equal(image_values, mean).all(1)),
                                 msg=("Means should be points from given array"))
         print_success_message()
 
@@ -190,7 +190,7 @@ class GMMTests(unittest.TestCase):
         self.assertTrue(means.shape == (num_components, n),
                         msg="Incorrect mean dimensions")
         for mean in means:
-            self.assertTrue(any(np.equal(image_matrix, mean).all(1)), 
+            self.assertTrue(any(np.equal(image_matrix, mean).all(1)),
                                     msg=("Means should be points from given array"))
         self.assertTrue(mixing_coefficients.sum() == 1,
                         msg="Incorrect mixing coefficients, make all coefficient sum to 1")
@@ -234,7 +234,7 @@ class GMMTests(unittest.TestCase):
                         msg="Incorrect covariance matrix.")
         print_success_message()
 
-        
+
     def test_gmm_prob(self, prob):
         """Testing the GMM method
         for calculating the probability
@@ -256,12 +256,12 @@ class GMMTests(unittest.TestCase):
         p = prob(image_matrix[0], mean, covariance)
         self.assertEqual(round(p, 5), 0.98605,
                          msg="Incorrect probability value returned for single input.")
-                         
+
         # Multiple Input
         p = prob(image_matrix[0:5], mean, covariance)
         self.assertEqual(list(np.round(p, 5)), [0.98605, 0.78737, 1.20351, 1.35478, 0.73028],
                          msg="Incorrect probability value returned for multiple input.")
-        
+
         print_success_message()
 
 
@@ -345,14 +345,14 @@ class GMMTests(unittest.TestCase):
                                     [[0.01070972, 0.01125898, 0.00943508],
                                     [0.01125898, 0.01191069, 0.01015814],
                                     [0.00943508, 0.01015814, 0.01503744]]])
-        
-        self.assertTrue(np.shape(pi) == np.shape(expected_PI), 
+
+        self.assertTrue(np.shape(pi) == np.shape(expected_PI),
                         msg="Shapes of computed and expected pi mismacth.")
-        self.assertTrue(np.shape(mu) == np.shape(expected_MU), 
+        self.assertTrue(np.shape(mu) == np.shape(expected_MU),
                         msg="Shapes of computed and expected mu mismacth.")
-        self.assertTrue(np.shape(sigma) == np.shape(expected_SIGMA), 
+        self.assertTrue(np.shape(sigma) == np.shape(expected_SIGMA),
                         msg="Shapes of computed and expected sigma mismacth.")
-        
+
         self.assertTrue(np.allclose(pi, expected_PI),
                         msg="Incorrect new coefficient matrix.")
         self.assertTrue(np.allclose(mu, expected_MU),
@@ -447,7 +447,7 @@ class GMMTests(unittest.TestCase):
                                  [0.03036055, 0.06499729, 0.06576895],
                                  [-0.09287403, 0.06576895, 0.49017089]]])
         pis = np.array([0.2, 0.2, 0.2, 0.2, 0.2])
-        
+
         initial_lkl = likelihood(image_matrix, pis, means, covariances, num_components)
         MU, SIGMA, PI, r = train_model(image_matrix, num_components,
                                        convergence_function=default_convergence,
@@ -478,7 +478,7 @@ class GMMTests(unittest.TestCase):
                                        convergence_function=default_convergence)
 
         segment = segment(image_matrix, MU, num_components, r)
-        
+
         segment_num_components = len(np.unique(segment, axis=0))
         self.assertTrue(segment_num_components == r.shape[0],
                         msg="Incorrect number of image segments produced")
