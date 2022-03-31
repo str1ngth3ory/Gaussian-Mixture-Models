@@ -96,9 +96,36 @@ def k_means_segment(image_values, k=3, initial_means=None):
 #         print(curr_clusters)
 
     curr_clusters = means[curr_clusters]
-    print(curr_clusters.reshape(img_shape))
+#     print(curr_clusters.reshape(img_shape))
     return curr_clusters.reshape(img_shape)
 
+
+########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
+##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
+################ END OF LOCAL TEST CODE SECTION ######################
+
+"""
+Make sure to put #export (first line in this cell) only
+if you call/use this function elsewhere in the code
+"""
+def compute_sigma(X, MU):
+    """
+    Calculate covariance matrix, based in given X and MU values
+
+    params:
+    X = numpy.ndarray[numpy.ndarray[float]] - m x n
+    MU = numpy.ndarray[numpy.ndarray[float]] - k x n
+
+    returns:
+    SIGMA = numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]] - k x n x n
+    """
+    # TODO: finish this function
+    deviation = X[None,:,:] - MU[:,None,:]
+    dev_shape = list(deviation.shape)
+    dev_shape.append(3)
+    m = len(X)
+    SIGMA = np.transpose(deviation,[0,2,1]) @ deviation / m
+    return SIGMA
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -126,7 +153,11 @@ def initialize_parameters(X, k):
     """
     # TODO: finish this function
     # Hint: for initializing SIGMA you could choose to use compute_sigma
-    raise NotImplementedError()
+    initial_mu_idx = np.random.choice(X.shape[0], k, replace=False)
+    MU = X[initial_mu_idx]
+    SIGMA = compute_sigma(X, MU)
+    PI = np.ones(k)/k
+    return MU, SIGMA, PI
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
