@@ -357,7 +357,7 @@ class GMMTests(unittest.TestCase):
                         msg="Shapes of computed and expected sigma mismacth.")
 
         self.assertTrue(np.allclose(pi, expected_PI),
-                        msg="Incorrect new coefficient matrix.")
+                        msg="Incorrect new PI.")
         self.assertTrue(np.allclose(mu, expected_MU),
                         msg="Incorrect new means matrix.")
         self.assertTrue(np.allclose(sigma, expected_SIGMA),
