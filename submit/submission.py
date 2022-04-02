@@ -447,7 +447,9 @@ def improved_initialization(X,k):
     PI = numpy.ndarray[float] - k
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    MU, SIGMA, PI, r = train_model(X, k)
+    PI = np.ones(k)/k
+    return MU, SIGMA, PI
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -477,9 +479,21 @@ def new_convergence_function(previous_variables, new_variables, conv_ctr,
     converged = boolean
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    increase_convergence_ctr = True
+    for i in range(3):
+        if increase_convergence_ctr:
+            increase_convergence_ctr = np.allclose(new_variables[i], previous_variables[i], rtol=0.1)
+        else:
+            break
 
-def train_model_improved(X, k, convergence_function, initial_values = None):
+    if increase_convergence_ctr:
+        conv_ctr += 1
+    else:
+        conv_ctr = 0
+
+    return conv_ctr, conv_ctr > conv_ctr_cap
+
+def train_model_improved(X, k, convergence_function=new_convergence_function, initial_values = None):
     """
     Train the mixture model using the
     expectation-maximization algorithm.
@@ -505,7 +519,24 @@ def train_model_improved(X, k, convergence_function, initial_values = None):
     responsibility = numpy.ndarray[numpy.ndarray[float]] - k x m
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    if initial_values == None:
+        MU, SIGMA, PI = initialize_parameters(X, k)
+    else:
+        MU, SIGMA, PI = initial_values
+
+    conv_ctr = 0
+    prev_variables = None
+    new_variables = [np.empty_like(MU),np.empty_like(SIGMA),np.empty_like(PI)]
+    conv_check = False
+
+    while not conv_check:
+        prev_variables = new_variables
+        r = E_step(X,MU,SIGMA,PI,k)
+        MU, SIGMA, PI = M_step(X, r, k)
+        new_variables = [MU,SIGMA,PI]
+        conv_ctr, conv_check = convergence_function(prev_variables, new_variables, conv_ctr)
+
+    return MU, SIGMA, PI, r
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 # Unittest below will check both of the functions at the same time.
@@ -526,7 +557,9 @@ def bayes_info_criterion(X, PI, MU, SIGMA, k):
     bayes_info_criterion = int
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    n = X.shape[1]
+    BIC = np.log(len(X))*(k*((n**2-n)/2+2*n+1)-1) - 2*likelihood(X, PI, MU, SIGMA, k)
+    return BIC
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -548,7 +581,18 @@ def BIC_likelihood_model_test(image_matrix, comp_means):
     n_comp_max_likelihood = int
     """
     # TODO: finish this method
-    raise NotImplementedError()
+    n_comp = np.array([0. for _ in comp_means])
+    log_L = np.array([0. for _ in comp_means])
+    BIC = np.array([0. for _ in comp_means])
+    for i,means in enumerate(comp_means):
+        SIGMA = compute_sigma(image_matrix, means)
+        k = len(means)
+        PI = np.ones(k)/k
+        MU, SIGMA, PI, r = train_model(image_matrix, len(means), initial_values = (means, SIGMA, PI))
+        n_comp[i] = k
+        log_L[i] = likelihood(image_matrix, PI, MU, SIGMA, k)
+        BIC[i] = bayes_info_criterion(image_matrix, PI, MU, SIGMA, k)
+    return n_comp[np.argmin(BIC)], n_comp[np.argmax(log_L)]
 
 def return_your_name():
     # return your name
