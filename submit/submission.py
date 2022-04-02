@@ -121,10 +121,8 @@ def compute_sigma(X, MU):
     """
     # TODO: finish this function
     deviation = X[None,:,:] - MU[:,None,:]
-    dev_shape = list(deviation.shape)
-    dev_shape.append(3)
     m = len(X)
-    SIGMA = np.transpose(deviation,[0,2,1]) @ deviation / m
+    SIGMA = np.einsum('knm,kmj->knj',np.transpose(deviation,[0,2,1]),deviation) / m
     return SIGMA
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
@@ -181,7 +179,27 @@ def prob(x, mu, sigma):
                 or numpy.ndarray[float] (for array of datapoints)
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    if x.ndim == 1:
+        n = len(x)
+        d = (x - mu).reshape(1,n)
+        sigma_inv = np.linalg.inv(sigma)
+        p = (2*np.pi)**(-n/2)*np.linalg.det(sigma)**(-0.5)*np.exp(-0.5*np.einsum('ij,jk,ki->',d,sigma_inv,d.T))
+    elif mu.ndim == 1:
+        n = x.shape[1]
+        d = x - mu
+        sigma_inv = np.linalg.inv(sigma)
+        p = (2*np.pi)**(-n/2)*np.linalg.det(sigma)**(-0.5)*np.exp(-0.5*np.einsum('ij,jk,ki->i',d,sigma_inv,d.T))
+    else:
+        n = x.shape[1]
+        d = x[None,:,:] - mu[:,None,:]
+        det = np.array([1.0 for _ in mu])
+        for i, A in enumerate(sigma):
+            det[i] = np.linalg.det(A)
+        inv = np.empty_like(sigma)
+        for i, A in enumerate(sigma):
+            inv[i] = np.linalg.inv(A)
+        p = (2*np.pi)**(-n/2)*np.einsum('k,km->km',det**(-0.5),np.exp(-0.5*np.einsum('kmn,knl,klm->km',d,inv,np.transpose(d,(0,2,1)))))
+    return p
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -205,7 +223,12 @@ def E_step(X,MU,SIGMA,PI,k):
     responsibility = numpy.ndarray[numpy.ndarray[float]] - k x m
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    Nc = prob(X,MU,SIGMA)
+    picNc = np.einsum('k,km->km',PI,Nc)
+    sum_picNc = np.sum(picNc,axis=0)
+    rc = picNc / sum_picNc
+    return rc
+
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -229,7 +252,13 @@ def M_step(X, r, k):
     new_PI = numpy.ndarray[float] - k
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    Nc = np.sum(r,axis=1)
+    N = r.shape[1]
+    new_PI = Nc/N
+    new_MU = np.einsum('k,km,mn->kn',1/Nc,r,X)
+    dev = X[None,:,:] - new_MU[:,None,:]
+    new_SIGMA = np.einsum('k,km,knm,kml->knl',1/Nc,r,np.transpose(dev,[0,2,1]),dev)
+    return new_MU, new_SIGMA, new_PI
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -256,13 +285,14 @@ def likelihood(X, PI, MU, SIGMA, k):
     log_likelihood = float
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    log_likelihood = np.sum(np.log(np.sum(np.einsum('k,km->km',PI,prob(X, MU, SIGMA)),axis=0)))
+    return log_likelihood
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
 ################ END OF LOCAL TEST CODE SECTION ######################
 
-def train_model(X, k, convergence_function, initial_values = None):
+def train_model(X, k, convergence_function = default_convergence, initial_values = None):
     """
     Train the mixture model using the
     expectation-maximization algorithm.
@@ -289,7 +319,25 @@ def train_model(X, k, convergence_function, initial_values = None):
     responsibility = numpy.ndarray[numpy.ndarray[float]] - k x m
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    if initial_values == None:
+        MU, SIGMA, PI = initialize_parameters(X, k)
+    else:
+        MU, SIGMA, PI = initial_values
+
+    conv_ctr = 0
+    prev_likelihood = -np.inf
+    new_likelihood = -np.inf
+    conv_check = False
+
+    while not conv_check:
+        prev_likelihood = new_likelihood
+        r = E_step(X,MU,SIGMA,PI,k)
+        MU, SIGMA, PI = M_step(X, r, k)
+        new_likelihood = likelihood(X, PI, MU, SIGMA, k)
+        conv_ctr, conv_check = convergence_function(prev_likelihood, new_likelihood, conv_ctr)
+
+    return MU, SIGMA, PI, r
+
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -310,7 +358,8 @@ def cluster(r):
     clusters = numpy.ndarray[int] - m x 1
     """
     # TODO: finish this
-    raise NotImplementedError()
+    clusters = np.argmax(r, axis=0)
+    return clusters
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -336,7 +385,9 @@ def segment(X, MU, k, r):
     new_X = numpy.ndarray[numpy.ndarray[float]] - m x n
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    clusters = np.argmax(r, axis=0)
+    new_X = MU[clusters]
+    return new_X
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
@@ -361,7 +412,14 @@ def best_segment(X,k,iters):
     segment = numpy.ndarray[numpy.ndarray[float]]
     """
     # TODO: finish this function
-    raise NotImplementedError()
+    max_likelihood = -np.inf
+    for i in range(iters):
+        MU, SIGMA, PI, r = train_model(X, k)
+        L_hat = likelihood(X, PI, MU, SIGMA, k)
+        if max_likelihood < L_hat:
+            max_likelihood = L_hat
+            new_X = segment(X, MU, k, r)
+    return max_likelihood, new_X
 
 ########## DON'T WRITE ANY CODE OUTSIDE THE FUNCTION! ################
 ##### CODE BELOW IS USED FOR RUNNING LOCAL TEST DON'T MODIFY IT ######
